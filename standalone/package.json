@@ -1,0 +1,16 @@
+{
+  "name": "waii-widget-standalone-example",
+  "version": "1.0.0",
+  "description": "Standalone JavaScript implementation example of Waii Chat Widget",
+  "author": "Waii, Inc.",
+  "license": "MIT",
+  "scripts": {
+    "start": "http-server -p 3000"
+  },
+  "dependencies": {
+    "@waii-ai/widgets": "latest"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}

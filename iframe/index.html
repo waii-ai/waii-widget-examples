@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WaiiChat Widget Example</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            min-height: 100vh;
+        }
+
+        #chat-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            transition: transform 0.2s ease;
+            background: transparent;
+        }
+
+        #chat-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        #chat-toggle img {
+            width: 55px;
+            height: 55px;
+            object-fit: contain;
+        }
+
+        #chat-container {
+            position: fixed;
+            top: 0;
+            right: -600px;
+            width: 600px;
+            height: 88vh;
+            background: white;
+            box-shadow: -2px 0 12px rgba(0, 0, 0, 0.1);
+            transition: right 0.3s ease;
+            z-index: 998;
+        }
+
+        #chat-container.open {
+            right: 0;
+        }
+
+        #controls {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        button {
+            padding: 8px 16px;
+            margin-right: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #0070f3;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0051b3;
+        }
+
+        @media (max-width: 650px) {
+            #chat-container {
+                width: 100%;
+                right: -100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="chat-toggle">
+        <img id="waii-logo" alt="WaiiChat" src="https://sql.waii.ai/logo.png">
+    </div>
+
+    <div id="chat-container">
+        <div id="controls">
+            <button onclick="toggleTheme()">Toggle Theme</button>
+            <button onclick="destroyChat()">Destroy Chat</button>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/@waii-ai/widgets/dist/embed.js"></script>
+    <script>
+        let currentTheme = 'light';
+        let chatWidget;
+        let isOpen = false;
+
+        function initializeChat() {
+
+            chatWidget = new WaiiWidgets.WaiiChatEmbed('#chat-container', {
+                iFrameSrc: 'http://<your waii deployment>/waii-chat',
+                apiKey: '<your api key>',
+                apiUrl: '<your api url>',
+                databaseKey: "<your database key>",
+                theme: currentTheme,
+                containerStyles: {
+                    height: 'calc(100% - 50px)',
+                    width: '100%'
+                },
+                onChatResponse: (response) => {
+                    console.log('Chat response:', response);
+                },
+                onReset: () => {
+                    console.log('Chat reset');
+                }
+            });
+        }
+
+        function toggleChat() {
+            const container = document.getElementById('chat-container');
+            isOpen = !isOpen;
+            container.classList.toggle('open');
+        }
+
+        function toggleTheme() {
+            currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+            chatWidget.updateConfig({ theme: currentTheme });
+        }
+
+        function destroyChat() {
+            chatWidget.destroy();
+        }
+
+        document.getElementById('chat-toggle').addEventListener('click', toggleChat);
+
+        initializeChat();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,16 @@
+{
+  "name": "waii-widget-iframe-example",
+  "version": "1.0.0",
+  "description": "iFrame implementation example of Waii Chat Widget",
+  "author": "Waii, Inc.",
+  "license": "MIT",
+  "scripts": {
+    "start": "http-server -p 3002"
+  },
+  "dependencies": {
+    "@waii-ai/widgets": "latest"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}
