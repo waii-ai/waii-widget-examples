@@ -102,4 +102,4 @@ The example will be available at `http://localhost:3002`
 
 ## Copyright
 
-© 2024 Waii AI. All Rights Reserved.
+© 2024-2025 Waii AI. All Rights Reserved.
