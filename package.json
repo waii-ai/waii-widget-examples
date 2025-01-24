@@ -15,6 +15,6 @@
     "start:standalone": "cd standalone && npm start"
   },
   "dependencies": {
-    "@waii-ai/widgets": "latest"
+    "@waii-ai/widgets": "file:../waii-widgets"
   }
 }
