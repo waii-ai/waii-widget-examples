@@ -1,20 +1,24 @@
 {
   "name": "waii-widget-examples",
   "version": "1.0.0",
-  "description": "Example implementations of Waii Chat Widget - the world's best text to SQL API",
+  "description": "Example implementations of Waii chat widget - the world's best text-to-SQL API",
   "author": "Waii, Inc.",
   "license": "MIT",
   "workspaces": [
     "iframe",
-    "react",
+    "react-examples/chat-with-history",
+    "react-examples/chat",
+    "react-examples/history",
     "standalone"
   ],
   "scripts": {
     "start:iframe": "cd iframe && npm start",
-    "start:react": "cd react && npm start",
+    "start:react-chat-with-history": "cd react-examples/chat-with-history && npm start",
+    "start:react-chat": "cd react-examples/chat && npm start",
+    "start:react-history": "cd react-examples/history && npm start",
     "start:standalone": "cd standalone && npm start"
   },
   "dependencies": {
-    "@waii-ai/widgets": "file:../waii-widgets"
+    "@waii-ai/widgets": "latest"
   }
 }
