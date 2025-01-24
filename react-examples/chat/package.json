@@ -1,7 +1,7 @@
 {
-    "name": "waii-widget-react-example",
+    "name": "waii-widget-react-example-chat",
     "version": "1.0.0",
-    "description": "React implementation example of Waii Chat Widget",
+    "description": "Example react implementation of Waii chat widget",
     "author": "Waii, Inc.",
     "license": "MIT",
     "scripts": {
@@ -13,7 +13,7 @@
       "react": "18.3.1",
       "react-dom": "18.3.1",
       "antd": "^5.21.6",
-      "@waii-ai/widgets": "1.27.5"
+      "@waii-ai/widgets": "latest"
     },
     "devDependencies": {
       "@types/react": "^18.3.16",

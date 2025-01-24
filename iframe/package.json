@@ -1,7 +1,7 @@
 {
-  "name": "waii-widget-iframe-example",
+  "name": "waii-widget-examples-iframe",
   "version": "1.0.0",
-  "description": "iFrame implementation example of Waii Chat Widget",
+  "description": "Example iFrame implementation of Waii chat widget",
   "author": "Waii, Inc.",
   "license": "MIT",
   "scripts": {

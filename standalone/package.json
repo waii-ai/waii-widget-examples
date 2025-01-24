@@ -1,7 +1,7 @@
 {
-  "name": "waii-widget-standalone-example",
+  "name": "waii-widget-examples-standalone",
   "version": "1.0.0",
-  "description": "Standalone JavaScript implementation example of Waii Chat Widget",
+  "description": "Example standalone JavaScript implementation of Waii chat widget",
   "author": "Waii, Inc.",
   "license": "MIT",
   "scripts": {

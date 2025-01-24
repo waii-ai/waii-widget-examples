@@ -3,7 +3,7 @@
 This repository contains example implementations of the Waii Chat Widget in different JavaScript environments:
 
 - **Standalone**: Pure JavaScript implementation
-- **React**: React component implementation
+- **React Examples**: React component implementation
 - **iFrame**: Embedded iFrame implementation with additional controls
 
 ## Prerequisites
@@ -15,17 +15,40 @@ This repository contains example implementations of the Waii Chat Widget in diff
 
 ```
 waii-widget-examples/
+│
 ├── iframe/
-│   └── index.html
-├── react/
-│   ├── src/
-│   │   ├── App.tsx
-│   │   └── index.tsx
+│   ├── index.html
 │   └── ...
+│
+├── react-examples/
+│   ├── chat/
+│   │   ├── src/
+│   │   │   ├── App.tsx
+│   │   │   └── index.tsx
+│   │   ├── index.html
+│   │   └── ...
+│   │
+│   ├── chat-with-history/
+│   │   ├── src/
+│   │   │   ├── App.tsx
+│   │   │   └── index.tsx
+│   │   ├── index.html
+│   │   └── ...
+│   │
+│   └── history/
+│       ├── src/
+│       │   ├── App.tsx
+│       │   └── index.tsx
+│       ├── index.html
+│       └── ...
+│
 ├── standalone/
-│   └── index.html
+│   ├── index.html
+│   └── ...
+│
 ├── package.json
-└── README.md
+├── README.md
+└── ...
 ```
 
 ## Getting Started
@@ -54,31 +77,34 @@ Each example needs to be modified before running it. At the very least you need 
 
 #### Standalone Example
 
-The values that need to be changed are in: `standalone/index.html`
+The values that need to be changed are in: [Standalone Webpage](./standalone/index.html)
 
 ```bash
-cd standalone
-npm start
+npm start:standalone
 ```
 The example will be available at `http://localhost:3000`
 
 #### React Example
 
-The values that need to be changed are in: `react/src/App.tsx`
+The values that need to be changed are in: [React Chat App](./react-examples/chat/src/App.tsx), [React Chat with History App](./react-examples/chat-with-history/src/App.tsx), [React History App](./react-examples/history/src/App.tsx)
 
 ```bash
-cd react
-npm start
+npm start:react-chat
+```
+```bash
+npm start:react-chat-with-history
+```
+```bash
+npm start:react-history
 ```
 The example will be available at `http://localhost:3001`
 
 #### iFrame Example
 
-The values that need to be changed are in: `iframe/index.html`
+The values that need to be changed are in: [iFrame Webpage](./iframe/index.html)
 
 ```bash
-cd iframe
-npm start
+npm start:iframe
 ```
 The example will be available at `http://localhost:3002`
 
@@ -89,10 +115,13 @@ The example will be available at `http://localhost:3002`
 - Event handling
 - Responsive design
 
-### React Example
+### React Examples
 - React component integration
 - TypeScript implementation
 - Custom styling
+- Chat Example: Waii Chat react component integration
+- Chat with History Example: Waii Chat and History react component integration
+- History Example: Waii History react component integration
 
 ### iFrame Example
 - iFrame embedding
