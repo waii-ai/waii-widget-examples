@@ -13,7 +13,7 @@
       "react": "18.3.1",
       "react-dom": "18.3.1",
       "antd": "^5.21.6",
-      "@waii-ai/widgets": "file:../../../waii-widgets/"
+      "@waii-ai/widgets": "1.27.5"
     },
     "devDependencies": {
       "@types/react": "^18.3.16",
