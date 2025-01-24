@@ -102,6 +102,9 @@ const CombinedChatInterface: React.FC = () => {
           apiKey="<api key>"
           databaseKey="<db key>"
           ref={chatRef}
+          chatStyles={{container : {
+            width : "100"
+          }}}
           chatHistoryList={currentChatGroup? currentChatGroup: []}
           handleChatResponse={handleChatResponse}
           theme="light"
