@@ -2,46 +2,42 @@ import React, { useState, useRef, useCallback } from 'react';
 import { WaiiChat, WaiiChatHistory } from '@waii-ai/widgets';
 import { ChatResponse, ChatRequest } from 'waii-sdk-js/dist/clients/chat/src/Chat';
 import { GeneratedChatHistoryEntry } from 'waii-sdk-js/dist/clients/history/src/History';
-import { Spin } from 'antd';
+import { Button, Spin } from 'antd';
+import { WaiiChatHandle } from '@waii-ai/widgets/dist/types/components/Chat/types';
 import '../../../config.js';
 
 interface ChatRef {
-  sendMessageExternal: (message: string | number, updated_manual_query: string | number | null) => void;
+  sendMessageExternal: (message: string | number , updated_manual_query: string | number | null) => void;
 }
 
 const CombinedChatInterface: React.FC = () => {
   const [chatHistory, setChatHistory] = useState<GeneratedChatHistoryEntry[]>([]);
-  const chatRef = useRef<ChatRef | null>(null);
-  const [selectedSessionId, setSelectedSessionId] = useState<string | number | null>(null);
+  const chatRef = useRef<WaiiChatHandle>(null);
   const [currentChatGroup, setCurrentChatGroup] = useState<GeneratedChatHistoryEntry[]>([]);
-  const [chatParentUuid, setChatParentUuid] = useState<string | null>(null);
-
   // @ts-ignore
   const { configs } = window;
   console.log(configs);
 
+  const newSessionHandler = () =>{
+    chatRef.current?.clearChat();
+  }
+
   const handleSessionSelect = useCallback((
-    sessionId: string,
+    sessionId: string, 
     group?: GeneratedChatHistoryEntry[]
-  ) => {
-    setSelectedSessionId(sessionId);
+  ) => {    
 
     if (group && group.length > 0) {
       setCurrentChatGroup(group);
-      const lastMessage = group[group.length - 1];
-      if (lastMessage.response?.chat_uuid) {
-        setChatParentUuid(lastMessage.response.chat_uuid);
-      }
-
     } else {
       setCurrentChatGroup([]);
-      setChatParentUuid(null);
     }
+
   }, []);
 
   const containerStyle: React.CSSProperties = {
     display: 'flex',
-    height: 'calc(100vh - 2rem)',
+    height: '100vh',
     width: '100%',
     backgroundColor: '#f5f5f5'
   };
@@ -49,7 +45,9 @@ const CombinedChatInterface: React.FC = () => {
   const historyStyle: React.CSSProperties = {
     width: '300px',
     borderRight: '1px solid #e0e0e0',
-    backgroundColor: '#ffffff'
+    backgroundColor: '#ffffff',
+    display: 'flex',
+    flexDirection: 'column'
   };
 
   const chatStyle: React.CSSProperties = {
@@ -59,20 +57,13 @@ const CombinedChatInterface: React.FC = () => {
 
   function handleChatResponse(response: any, requestWithResponse: any): void {
 
-    if (!requestWithResponse)
+    if(!requestWithResponse)
       return
-    console.log(response)
-    // if(!response)
-    //   return
-    // setChatHistory([...chatHistory, response])
 
     setChatHistory(prevState => {
       const oldHistory = prevState || [];
       const newHistory = [...requestWithResponse.history].reverse();
-      return {
-        ...prevState,
-        history: [...newHistory, ...oldHistory]
-      };
+      return  [...newHistory, ...oldHistory];
     });
   }
 
@@ -93,26 +84,50 @@ const CombinedChatInterface: React.FC = () => {
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-              <Spin />
+            <Spin/>
             </div>
           }
           initialDisplayCount={4}
           maxHeight="70vh"
+          showNewChat={true}
+          onLoadHistory={(history: GeneratedChatHistoryEntry[]) => {
+            setChatHistory(history)
+          }}
+          customNewChatButton={
+            <Button
+              onClick={newSessionHandler}
+              style={{
+                backgroundColor: '#333',
+                borderRadius: '24px',
+                height: '48px',
+                padding: '0 20px',
+                position: 'absolute',
+                bottom: '24px',
+                left: '24px',
+                color: '#fff',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                marginLeft : '50px'
+              }}
+            >
+              <span style={{ fontSize: '24px', fontWeight: 'bold' }}>+</span>
+              <span>New Project</span>
+            </Button>
+          }
         />
       </div>
-
+      
       <div style={chatStyle}>
         <WaiiChat
           apiUrl={configs.apiUrl}
           apiKey={configs.apiKey}
           databaseKey={configs.databaseKey}
-          ref={chatRef}
-          chatStyles={{
-            container: {
-              width: "100"
-            }
-          }}
-          chatHistoryList={currentChatGroup ? currentChatGroup : []}
+               ref={chatRef}
+          chatStyles={{container : {
+            width : "100"
+          }}}
+          chatHistoryList={currentChatGroup? currentChatGroup: []}
           handleChatResponse={handleChatResponse}
           theme="light"
           className="chat-container"
