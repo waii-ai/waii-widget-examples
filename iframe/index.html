@@ -96,6 +96,7 @@
     </div>
 
     <script src="https://unpkg.com/@waii-ai/widgets/dist/embed.js"></script>
+    <script src="config.js"></script>
     <script>
         let currentTheme = 'light';
         let chatWidget;
@@ -104,10 +105,10 @@
         function initializeChat() {
 
             chatWidget = new WaiiWidgets.WaiiChatEmbed('#chat-container', {
-                iFrameSrc: 'http://<your waii deployment>/waii-chat',
-                apiKey: '<your api key>',
-                apiUrl: '<your api url>',
-                databaseKey: "<your database key>",
+                iFrameSrc: window.configs.iFrameSrc,
+                apiKey: window.configs.apiKey,
+                apiUrl: window.configs.apiUrl,
+                databaseKey: window.configs.databaseKey,
                 theme: currentTheme,
                 containerStyles: {
                     height: 'calc(100% - 50px)',

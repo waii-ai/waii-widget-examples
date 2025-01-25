@@ -68,7 +68,7 @@ waii-widget-examples/
 
 #### Configuration
 
-Each example needs to be modified before running it. At the very least you need to replace the following values with your own:
+`config.js` in the root folder needs to be modified before running examples. At the very least you need to replace the following values with your own:
 
 - `apiKey`: Your Waii API key
 - `databaseKey`: Your database connection string
@@ -77,16 +77,12 @@ Each example needs to be modified before running it. At the very least you need 
 
 #### Standalone Example
 
-The values that need to be changed are in: [Standalone Webpage](./standalone/index.html)
-
 ```bash
 npm start:standalone
 ```
 The example will be available at `http://localhost:3000`
 
 #### React Example
-
-The values that need to be changed are in: [React Chat App](./react-examples/chat/src/App.tsx), [React Chat with History App](./react-examples/chat-with-history/src/App.tsx), [React History App](./react-examples/history/src/App.tsx)
 
 ```bash
 npm start:react-chat
@@ -100,8 +96,6 @@ npm start:react-history
 The example will be available at `http://localhost:3001`
 
 #### iFrame Example
-
-The values that need to be changed are in: [iFrame Webpage](./iframe/index.html)
 
 ```bash
 npm start:iframe

@@ -2,6 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { WaiiChatHistory } from '@waii-ai/widgets';
 import { Layout, Card, Select, Switch, Slider, Radio, Space, Divider, Input, ColorPicker } from 'antd';
 import { MessageOutlined, AppstoreOutlined, UnorderedListOutlined, BarsOutlined } from '@ant-design/icons';
+import '../../../config.js';
+
+// @ts-ignore
+const { configs } = window;
+console.log(configs);
 
 const { Option } = Select;
 
@@ -34,7 +39,7 @@ const StyleShowcase = () => {
     },
     cards: {
       container: {
-        margin: `${spacing/2}px 0`,
+        margin: `${spacing / 2}px 0`,
         padding: `${spacing}px`,
         borderRadius: `${borderRadius}px`,
         boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
@@ -51,7 +56,7 @@ const StyleShowcase = () => {
       },
       messageCount: {
         padding: '2px 8px',
-        borderRadius: `${borderRadius/2}px`,
+        borderRadius: `${borderRadius / 2}px`,
         backgroundColor: isDarkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)'
       }
     },
@@ -59,7 +64,7 @@ const StyleShowcase = () => {
       container: {
         borderLeft: `3px solid ${selectedColors.border}`,
         paddingLeft: `${spacing}px`,
-        marginBottom: `${spacing/2}px`,
+        marginBottom: `${spacing / 2}px`,
         transition: 'all 0.2s ease',
         '&:hover': {
           borderLeftColor: selectedColors.primary
@@ -69,13 +74,13 @@ const StyleShowcase = () => {
         fontSize: `${fontSize}px`
       },
       messageCount: {
-        fontSize: `${fontSize-2}px`
+        fontSize: `${fontSize - 2}px`
       }
     },
     bordered: {
       container: {
         border: `1px solid ${isDarkMode ? '#374151' : selectedColors.border}`,
-        margin: `${spacing/2}px 0`,
+        margin: `${spacing / 2}px 0`,
         borderRadius: `${borderRadius}px`,
         padding: `${spacing}px`,
         transition: 'all 0.2s ease'
@@ -87,12 +92,12 @@ const StyleShowcase = () => {
       messageCount: {
         border: `1px solid ${isDarkMode ? '#374151' : selectedColors.border}`,
         padding: '2px 8px',
-        borderRadius: `${borderRadius/2}px`
+        borderRadius: `${borderRadius / 2}px`
       }
     },
     modern: {
       container: {
-        margin: `${spacing/2}px 0`,
+        margin: `${spacing / 2}px 0`,
         padding: `${spacing}px`,
         borderRadius: `${borderRadius}px`,
         background: 'linear-gradient(145deg, #ffffff, #f5f5f5)',
@@ -112,7 +117,7 @@ const StyleShowcase = () => {
     },
     compact: {
       container: {
-        padding: `${spacing/2}px`,
+        padding: `${spacing / 2}px`,
         borderBottom: `1px solid ${selectedColors.border}`,
         transition: 'background-color 0.2s ease',
         '&:hover': {
@@ -120,11 +125,11 @@ const StyleShowcase = () => {
         }
       },
       summary: {
-        fontSize: `${fontSize-1}px`,
+        fontSize: `${fontSize - 1}px`,
         lineHeight: 1.4
       },
       messageCount: {
-        fontSize: `${fontSize-2}px`,
+        fontSize: `${fontSize - 2}px`,
         opacity: 0.7
       }
     }
@@ -132,20 +137,20 @@ const StyleShowcase = () => {
 
   // Custom empty state with current theme colors
   const CustomEmptyState = () => (
-    <div style={{ 
-      textAlign: 'center', 
-      padding: `${spacing*2}px ${spacing}px`,
+    <div style={{
+      textAlign: 'center',
+      padding: `${spacing * 2}px ${spacing}px`,
       color: selectedColors.secondaryText
     }}>
-      <MessageOutlined style={{ 
-        fontSize: `${fontSize*2}px`, 
-        marginBottom: `${spacing/2}px`,
-        color: selectedColors.primary 
+      <MessageOutlined style={{
+        fontSize: `${fontSize * 2}px`,
+        marginBottom: `${spacing / 2}px`,
+        color: selectedColors.primary
       }} />
-      <div style={{ fontSize: `${fontSize+2}px`, fontWeight: 500 }}>
+      <div style={{ fontSize: `${fontSize + 2}px`, fontWeight: 500 }}>
         No conversations yet
       </div>
-      <div style={{ fontSize: `${fontSize-1}px`, marginTop: `${spacing/2}px` }}>
+      <div style={{ fontSize: `${fontSize - 1}px`, marginTop: `${spacing / 2}px` }}>
         Start chatting to see your history
       </div>
     </div>
@@ -161,8 +166,8 @@ const StyleShowcase = () => {
             <Space wrap>
               <div>
                 <div>Style Variant</div>
-                <Select 
-                  value={styleVariant} 
+                <Select
+                  value={styleVariant}
                   onChange={setStyleVariant}
                   style={{ width: 140 }}
                 >
@@ -181,12 +186,12 @@ const StyleShowcase = () => {
           <div>
             <h4>Size & Layout</h4>
             <Space direction="vertical" style={{ width: '100%' }}>
-              <Radio.Group value={widthMode} onChange={(e : any) => setWidthMode(e.target.value)}>
+              <Radio.Group value={widthMode} onChange={(e: any) => setWidthMode(e.target.value)}>
                 <Radio.Button value="fixed">Fixed Width</Radio.Button>
                 <Radio.Button value="fluid">Fluid Width</Radio.Button>
                 <Radio.Button value="custom">Custom Width</Radio.Button>
               </Radio.Group>
-              
+
               {widthMode === 'custom' && (
                 <div>
                   <div>Width (px)</div>
@@ -199,7 +204,7 @@ const StyleShowcase = () => {
                   />
                 </div>
               )}
-              
+
               <div>
                 <div>Height (px)</div>
                 <Slider
@@ -273,17 +278,17 @@ const StyleShowcase = () => {
 
       {/* Preview */}
       <Card title="Preview">
-        <div style={{ 
+        <div style={{
           border: `1px dashed ${selectedColors.border}`,
           padding: '20px',
           borderRadius: `${borderRadius}px`,
           width: widthMode === 'fluid' ? '100%' : widthMode === 'custom' ? `${width}px` : '300px'
         }}>
           <WaiiChatHistory
-          apiUrl="<api url>"
-          apiKey="<api key>"
-          databaseKey="<db key>"
-            style={{ 
+            apiUrl={configs.apiUrl}
+            apiKey={configs.apiKey}
+            databaseKey={configs.databaseKey}
+            style={{
               width: '100%',
               height: `${height}px`
             }}

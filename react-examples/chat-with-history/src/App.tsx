@@ -3,9 +3,10 @@ import { WaiiChat, WaiiChatHistory } from '@waii-ai/widgets';
 import { ChatResponse, ChatRequest } from 'waii-sdk-js/dist/clients/chat/src/Chat';
 import { GeneratedChatHistoryEntry } from 'waii-sdk-js/dist/clients/history/src/History';
 import { Spin } from 'antd';
+import '../../../config.js';
 
 interface ChatRef {
-  sendMessageExternal: (message: string | number , updated_manual_query: string | number | null) => void;
+  sendMessageExternal: (message: string | number, updated_manual_query: string | number | null) => void;
 }
 
 const CombinedChatInterface: React.FC = () => {
@@ -15,19 +16,23 @@ const CombinedChatInterface: React.FC = () => {
   const [currentChatGroup, setCurrentChatGroup] = useState<GeneratedChatHistoryEntry[]>([]);
   const [chatParentUuid, setChatParentUuid] = useState<string | null>(null);
 
+  // @ts-ignore
+  const { configs } = window;
+  console.log(configs);
+
   const handleSessionSelect = useCallback((
-    sessionId: string, 
+    sessionId: string,
     group?: GeneratedChatHistoryEntry[]
   ) => {
     setSelectedSessionId(sessionId);
-    
+
     if (group && group.length > 0) {
       setCurrentChatGroup(group);
       const lastMessage = group[group.length - 1];
       if (lastMessage.response?.chat_uuid) {
         setChatParentUuid(lastMessage.response.chat_uuid);
       }
-      
+
     } else {
       setCurrentChatGroup([]);
       setChatParentUuid(null);
@@ -36,7 +41,7 @@ const CombinedChatInterface: React.FC = () => {
 
   const containerStyle: React.CSSProperties = {
     display: 'flex',
-    height: '100vh',
+    height: 'calc(100vh - 2rem)',
     width: '100%',
     backgroundColor: '#f5f5f5'
   };
@@ -54,7 +59,7 @@ const CombinedChatInterface: React.FC = () => {
 
   function handleChatResponse(response: any, requestWithResponse: any): void {
 
-    if(!requestWithResponse)
+    if (!requestWithResponse)
       return
     console.log(response)
     // if(!response)
@@ -75,9 +80,9 @@ const CombinedChatInterface: React.FC = () => {
     <div style={containerStyle}>
       <div style={historyStyle}>
         <WaiiChatHistory
-          apiUrl="<api url>"
-          apiKey="<api key>"
-          databaseKey="<db key>"
+          apiUrl={configs.apiUrl}
+          apiKey={configs.apiKey}
+          databaseKey={configs.databaseKey}
           history={chatHistory}
           onSessionSelect={handleSessionSelect}
           isDarkMode={false}
@@ -88,24 +93,26 @@ const CombinedChatInterface: React.FC = () => {
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-            <Spin/>
+              <Spin />
             </div>
           }
           initialDisplayCount={4}
           maxHeight="70vh"
         />
       </div>
-      
+
       <div style={chatStyle}>
         <WaiiChat
-          apiUrl="<api url>"
-          apiKey="<api key>"
-          databaseKey="<db key>"
+          apiUrl={configs.apiUrl}
+          apiKey={configs.apiKey}
+          databaseKey={configs.databaseKey}
           ref={chatRef}
-          chatStyles={{container : {
-            width : "100"
-          }}}
-          chatHistoryList={currentChatGroup? currentChatGroup: []}
+          chatStyles={{
+            container: {
+              width: "100"
+            }
+          }}
+          chatHistoryList={currentChatGroup ? currentChatGroup : []}
           handleChatResponse={handleChatResponse}
           theme="light"
           className="chat-container"

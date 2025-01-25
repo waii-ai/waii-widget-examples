@@ -6,6 +6,7 @@
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@waii-ai/widgets/dist/waii-widgets.js"></script>
+    <script src="config.js"></script>
     <style>
         #waii-chat {
             width: 100%;
@@ -31,8 +32,8 @@
         document.addEventListener('DOMContentLoaded', function () {
             WaiiWidgets.WaiiChatLoader.init({
                 containerId: 'waii-chat',
-                apiKey: "<your api key>",
-                databaseKey: "<your database key>",
+                apiKey: window.configs.apiKey,
+                databaseKey: window.configs.databaseKey,
                 theme: 'light',
                 style: {
                     height: '100%',

@@ -1,6 +1,12 @@
 import React, { useState, useRef, FC } from 'react';
 import { WaiiChat } from '@waii-ai/widgets';
 import { Card, Slider, Space, ColorPicker } from 'antd';
+import '../../../config.js';
+
+// @ts-ignore
+const { configs } = window;
+console.log(configs);
+
 
 interface ColorState {
   background: string;
@@ -201,9 +207,9 @@ const WaiiChatShowcase: FC = () => {
           >
             <WaiiChat
               ref={chatRef}
-              apiUrl="<api url>"
-              apiKey="<api key>"
-              databaseKey="<db key>"
+              apiUrl={configs.apiUrl}
+              apiKey={configs.apiKey}
+              databaseKey={configs.databaseKey}
               chatStyles={computedChatStyles}
               handleChatResponse={handleChatResponse}
             />
