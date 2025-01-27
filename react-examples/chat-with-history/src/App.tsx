@@ -84,28 +84,7 @@ const CombinedChatInterface: React.FC = () => {
           onLoadHistory={(history: GeneratedChatHistoryEntry[]) => {
             setChatHistory(history)
           }}
-          customNewChatButton={
-            <Button
-              onClick={newSessionHandler}
-              style={{
-                backgroundColor: '#333',
-                borderRadius: '24px',
-                height: '48px',
-                padding: '0 20px',
-                position: 'absolute',
-                bottom: '24px',
-                left: '24px',
-                color: '#fff',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-                marginLeft : '50px'
-              }}
-            >
-              <span style={{ fontSize: '24px', fontWeight: 'bold' }}>+</span>
-              <span>New Project</span>
-            </Button>
-          }
+          onNewChat={newSessionHandler}
         />
       </div>
       
