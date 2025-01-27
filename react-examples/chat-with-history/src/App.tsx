@@ -50,8 +50,7 @@ const CombinedChatInterface: React.FC = () => {
     display: 'flex',
     flexDirection: 'column',
     borderRight: '1px solid #e0e0e0',
-    height: '100%',
-    overflow: 'auto'
+    overflow: 'hidden'
   };
 
   const chatStyle: React.CSSProperties = {
