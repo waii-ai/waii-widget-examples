@@ -78,15 +78,6 @@ const CombinedChatInterface: React.FC = () => {
           onSessionSelect={handleSessionSelect}
           isDarkMode={false}
           showSearch={true}
-          loadingComponent={
-            <div style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <Spin/>
-            </div>
-          }
           initialDisplayCount={4}
           maxHeight="70vh"
           showNewChat={true}
