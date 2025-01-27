@@ -196,8 +196,10 @@ const StyleShowcase = () => {
     apiKey: configs.apiKey,
     databaseKey: configs.databaseKey,
     style: {
-      width: '100%',
-      height: `${height}px`
+      width: 'auto',
+      height: `${height}px`,
+      maxWidth: '100%',
+      flex: '1'
     },
     isDarkMode,
     theme,
@@ -308,9 +310,10 @@ const StyleShowcase = () => {
           <Card title="Preview">
             <div style={{
               border: `1px dashed ${selectedColors.border}`,
-              padding: '20px',
               borderRadius: `${borderRadius}px`,
               width: '100%',
+              display: 'flex',
+              flexDirection: 'column',
               backgroundColor: isDarkMode ? '#141414' : '#ffffff'
             }}>
               <WaiiChatHistory {...chatHistoryProps} />
