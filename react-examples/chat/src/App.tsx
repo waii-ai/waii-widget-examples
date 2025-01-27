@@ -63,7 +63,7 @@ const WaiiChatShowcase: FC = () => {
     },
     messageList: {
       backgroundColor: selectedColors.containerBg,
-      padding: '16px'
+      padding: `${spacing}px`
     },
     userMessage: {
       bubble: {
