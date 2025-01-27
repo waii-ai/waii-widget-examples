@@ -85,20 +85,20 @@ The example will be available at `http://localhost:3000`
 #### React Example
 
 ```bash
-npm start:react-chat
+npm run start:react-chat
 ```
 ```bash
-npm start:react-chat-with-history
+npm run start:react-chat-with-history
 ```
 ```bash
-npm start:react-history
+npm run start:react-history
 ```
 The example will be available at `http://localhost:3001`
 
 #### iFrame Example
 
 ```bash
-npm start:iframe
+npm run start:iframe
 ```
 The example will be available at `http://localhost:3002`
 
