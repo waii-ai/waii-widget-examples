@@ -1,12 +1,10 @@
 import React, { useState, useRef, FC } from 'react';
 import { WaiiChat } from '@waii-ai/widgets';
-import { Card, Slider, Space, ColorPicker } from 'antd';
+import { Card, Slider, Space, ColorPicker, Switch } from 'antd';
 import '../../../config.js';
 
 // @ts-ignore
 const { configs } = window;
-console.log(configs);
-
 
 interface ColorState {
   background: string;
@@ -23,12 +21,12 @@ interface ColorState {
 }
 
 const WaiiChatShowcase: FC = () => {
-  // Create the refs and core state
   const chatRef = useRef(null);
+  const [isCustomStyleEnabled, setIsCustomStyleEnabled] = useState(false);
 
   // Basic style sliders
   const [height, setHeight] = useState<number>(600);
-  const [width, setWidth] = useState<number>(800);    // ← new width state here
+  const [width, setWidth] = useState<number>(800);
   const [borderRadius, setBorderRadius] = useState<number>(8);
   const [spacing, setSpacing] = useState<number>(16);
   const [fontSize, setFontSize] = useState<number>(14);
@@ -53,7 +51,7 @@ const WaiiChatShowcase: FC = () => {
   };
 
   // Create our single style object for WaiiChat
-  const computedChatStyles = {
+  const computedChatStyles = isCustomStyleEnabled ? {
     container: {
       backgroundColor: selectedColors.containerBg,
       borderRadius: `${borderRadius}px`,
@@ -69,7 +67,6 @@ const WaiiChatShowcase: FC = () => {
       bubble: {
         backgroundColor: selectedColors.userBubbleBg,
         color: selectedColors.userBubbleText,
-        borderRadius: '18px 18px 4px 18px',
         padding: '12px 16px',
         fontSize: `${fontSize}px`,
       }
@@ -78,7 +75,6 @@ const WaiiChatShowcase: FC = () => {
       bubble: {
         backgroundColor: selectedColors.botBubbleBg,
         color: selectedColors.botBubbleText,
-        borderRadius: '18px 18px 18px 4px',
         padding: '12px 16px',
         fontSize: `${fontSize}px`,
       }
@@ -100,89 +96,102 @@ const WaiiChatShowcase: FC = () => {
         color: selectedColors.buttonText
       }
     }
-  };
+  } : {};
 
   const StyleControls = () => (
     <div>
-      <h4>Style Controls</h4>
-      <Space wrap>
-        <div>
-          <div>Height (px)</div>
-          <Slider
-            min={300}
-            max={900}
-            value={height}
-            onChange={setHeight}
-            style={{ width: 150 }}
-          />
-        </div>
-        {/* NEW - width control */}
-        <div>
-          <div>Width (px)</div>
-          <Slider
-            min={300}
-            max={1200}
-            value={width}
-            onChange={setWidth}
-            style={{ width: 150 }}
-          />
-        </div>
-        <div>
-          <div>Border Radius (px)</div>
-          <Slider
-            min={0}
-            max={24}
-            value={borderRadius}
-            onChange={setBorderRadius}
-            style={{ width: 150 }}
-          />
-        </div>
-        <div>
-          <div>Chat Padding (px)</div>
-          <Slider
-            min={0}
-            max={32}
-            value={spacing}
-            onChange={setSpacing}
-            style={{ width: 150 }}
-          />
-        </div>
-        <div>
-          <div>Font Size (px)</div>
-          <Slider
-            min={12}
-            max={20}
-            value={fontSize}
-            onChange={setFontSize}
-            style={{ width: 150 }}
-          />
-        </div>
+      <Space align="center" style={{ marginBottom: '20px' }}>
+        <h4 style={{ margin: 0 }}>Custom Styles</h4>
+        <Switch
+          checked={isCustomStyleEnabled}
+          onChange={setIsCustomStyleEnabled}
+        />
       </Space>
+      
+      {isCustomStyleEnabled && (
+        <>
+          <h4>Style Controls</h4>
+          <Space wrap>
+            <div>
+              <div>Height (px)</div>
+              <Slider
+                min={300}
+                max={900}
+                value={height}
+                onChange={setHeight}
+                style={{ width: 150 }}
+              />
+            </div>
+            <div>
+              <div>Width (px)</div>
+              <Slider
+                min={300}
+                max={1200}
+                value={width}
+                onChange={setWidth}
+                style={{ width: 150 }}
+              />
+            </div>
+            <div>
+              <div>Border Radius (px)</div>
+              <Slider
+                min={0}
+                max={24}
+                value={borderRadius}
+                onChange={setBorderRadius}
+                style={{ width: 150 }}
+              />
+            </div>
+            <div>
+              <div>Chat Padding (px)</div>
+              <Slider
+                min={0}
+                max={32}
+                value={spacing}
+                onChange={setSpacing}
+                style={{ width: 150 }}
+              />
+            </div>
+            <div>
+              <div>Font Size (px)</div>
+              <Slider
+                min={12}
+                max={20}
+                value={fontSize}
+                onChange={setFontSize}
+                style={{ width: 150 }}
+              />
+            </div>
+          </Space>
+        </>
+      )}
     </div>
   );
 
   const ColorControls = () => (
-    <div>
-      <h4>Color Controls</h4>
-      <Space wrap>
-        {Object.entries(selectedColors).map(([key, value]) => (
-          <div key={key} style={{ marginBottom: '10px' }}>
-            <div style={{ textTransform: 'capitalize' }}>
-              {key.replace(/([A-Z])/g, ' $1').trim()}
+    isCustomStyleEnabled && (
+      <div>
+        <h4>Color Controls</h4>
+        <Space wrap>
+          {Object.entries(selectedColors).map(([key, value]) => (
+            <div key={key} style={{ marginBottom: '10px' }}>
+              <div style={{ textTransform: 'capitalize' }}>
+                {key.replace(/([A-Z])/g, ' $1').trim()}
+              </div>
+              <ColorPicker
+                value={value}
+                onChange={(color) =>
+                  setSelectedColors((prev) => ({
+                    ...prev,
+                    [key]: color.toHexString()
+                  }))
+                }
+              />
             </div>
-            <ColorPicker
-              value={value}
-              onChange={(color) =>
-                setSelectedColors((prev) => ({
-                  ...prev,
-                  [key]: color.toHexString()
-                }))
-              }
-            />
-          </div>
-        ))}
-      </Space>
-    </div>
+          ))}
+        </Space>
+      </div>
+    )
   );
 
   return (
@@ -196,13 +205,12 @@ const WaiiChatShowcase: FC = () => {
         </Card>
 
         <Card title="Preview">
-          {/* Outer container styling */}
           <div
             style={{
-              border: `1px solid ${selectedColors.inputBorder}`,
+              border: isCustomStyleEnabled ? `1px solid ${selectedColors.inputBorder}` : '1px solid #e0e0e0',
               padding: '20px',
-              borderRadius: `${borderRadius}px`,
-              backgroundColor: selectedColors.background
+              borderRadius: isCustomStyleEnabled ? `${borderRadius}px` : '8px',
+              backgroundColor: isCustomStyleEnabled ? selectedColors.background : '#ffffff'
             }}
           >
             <WaiiChat
