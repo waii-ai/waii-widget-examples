@@ -19,6 +19,6 @@
     "start:standalone": "cd standalone && npm start"
   },
   "dependencies": {
-    "@waii-ai/widgets": "1.27.6-beta.5"
+    "@waii-ai/widgets": "1.27.6-beta.6"
   }
 }
