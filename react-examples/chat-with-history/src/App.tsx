@@ -84,6 +84,7 @@ const CombinedChatInterface: React.FC = () => {
           isDarkMode={false}
           showSearch={true}
           initialDisplayCount={4}
+          maxHeight="100%"
           style={{
             paddingTop : "10px",
             paddingLeft : "5px",
