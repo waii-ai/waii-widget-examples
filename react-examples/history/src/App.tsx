@@ -18,7 +18,7 @@ const StyleShowcase = () => {
   const [fontSize, setFontSize] = useState(14);
   const [iconSize, setIconSize] = useState(14);
   const [summaryLines, setSummaryLines] = useState(2);
-  
+
   const [selectedColors, setSelectedColors] = useState<WaiiHistoryTheme['colors']>({
     primary: '#1890ff',
     background: '#ffffff',
@@ -43,12 +43,12 @@ const StyleShowcase = () => {
     },
     modern: {
       container: {
-        margin: `${spacing/2}px 0`,
+        margin: `${spacing / 2}px 0`,
         padding: `${spacing}px`,
         borderRadius: `${borderRadius}px`,
         backgroundColor: isDarkMode ? '#1f1f1f' : '#ffffff',
-        boxShadow: isDarkMode ? 
-          '0 4px 6px rgba(0, 0, 0, 0.3)' : 
+        boxShadow: isDarkMode ?
+          '0 4px 6px rgba(0, 0, 0, 0.3)' :
           '0 4px 6px rgba(0, 0, 0, 0.1)',
         transition: 'all 0.3s ease',
         border: `1px solid ${isDarkMode ? '#333' : '#eee'}`
@@ -64,7 +64,7 @@ const StyleShowcase = () => {
         fontSize: `${fontSize - 2}px`
       },
       contentRow: {
-        marginBottom: `${spacing/2}px`
+        marginBottom: `${spacing / 2}px`
       },
       metadataRow: {
         opacity: 0.8
@@ -72,11 +72,11 @@ const StyleShowcase = () => {
     },
     glass: {
       container: {
-        margin: `${spacing/2}px 0`,
+        margin: `${spacing / 2}px 0`,
         padding: `${spacing}px`,
         borderRadius: `${borderRadius}px`,
-        backgroundColor: isDarkMode ? 
-          'rgba(31, 31, 31, 0.7)' : 
+        backgroundColor: isDarkMode ?
+          'rgba(31, 31, 31, 0.7)' :
           'rgba(255, 255, 255, 0.7)',
         backdropFilter: 'blur(10px)',
         border: `1px solid ${isDarkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
@@ -123,7 +123,7 @@ const StyleShowcase = () => {
     flat: {
       container: {
         padding: `${spacing}px`,
-        margin: `${spacing/2}px 0`,
+        margin: `${spacing / 2}px 0`,
         backgroundColor: isDarkMode ? '#1a1a1a' : '#f9f9f9',
         borderRadius: `${borderRadius}px`,
         transition: 'transform 0.2s ease'
@@ -143,7 +143,7 @@ const StyleShowcase = () => {
     gradient: {
       container: {
         padding: `${spacing}px`,
-        margin: `${spacing/2}px 0`,
+        margin: `${spacing / 2}px 0`,
         background: isDarkMode ?
           'linear-gradient(145deg, #1f1f1f, #2d2d2d)' :
           'linear-gradient(145deg, #ffffff, #f5f5f5)',
@@ -217,99 +217,29 @@ const StyleShowcase = () => {
   };
 
   return (
-    <div style={{ padding: '20px', maxWidth: '1400px', margin: '0 auto' }}>
-      <Card title="WaiiChatHistory Style Customization">
-        <Space direction="vertical" size="large" style={{ width: '100%' }}>
-          {/* Basic Settings */}
+    <div style={{ padding: '20px', width: '400px', margin: '0 auto' }}>
+      <Card title="History Widget Customization Example">
+        <Space direction="vertical" size="small" style={{ width: '100%' }}>
           <div>
             <h4>Theme & Style</h4>
-            <Space wrap>
-              <div>
-                <div>Style Variant</div>
-                <Select
-                  value={styleVariant}
-                  onChange={setStyleVariant}
-                  style={{ width: 140 }}
-                >
-                  <Option value="default">Default</Option>
-                  <Option value="modern">Modern</Option>
-                  <Option value="glass">Glass</Option>
-                  <Option value="minimal">Minimal</Option>
-                  <Option value="flat">Flat</Option>
-                  <Option value="gradient">Gradient</Option>
-                </Select>
-              </div>
-            </Space>
+            <div>
+              <Select
+                value={styleVariant}
+                onChange={setStyleVariant}
+                style={{ width: 140 }}
+              >
+                <Option value="default">Default</Option>
+                <Option value="modern">Modern</Option>
+                <Option value="glass">Glass</Option>
+                <Option value="minimal">Minimal</Option>
+                <Option value="flat">Flat</Option>
+                <Option value="gradient">Gradient</Option>
+              </Select>
+            </div>
           </div>
-
-          {/* Typography Settings */}
-          <div>
-            <h4>Typography</h4>
-            <Space wrap>
-              <div>
-                <div>Font Size (px)</div>
-                <Slider
-                  min={12}
-                  max={18}
-                  value={fontSize}
-                  onChange={setFontSize}
-                  style={{ width: 150 }}
-                />
-              </div>
-              <div>
-                <div>Icon Size (px)</div>
-                <Slider
-                  min={12}
-                  max={24}
-                  value={iconSize}
-                  onChange={setIconSize}
-                  style={{ width: 150 }}
-                />
-              </div>
-              <div>
-                <div>Summary Lines</div>
-                <Slider
-                  min={1}
-                  max={4}
-                  value={summaryLines}
-                  onChange={setSummaryLines}
-                  style={{ width: 150 }}
-                />
-              </div>
-            </Space>
-          </div>
-
-          {/* Layout Settings */}
-          <div>
-            <h4>Layout</h4>
-            <Space wrap>
-              <div>
-                <div>Border Radius (px)</div>
-                <Slider
-                  min={0}
-                  max={24}
-                  value={borderRadius}
-                  onChange={setBorderRadius}
-                  style={{ width: 150 }}
-                />
-              </div>
-              <div>
-                <div>Spacing (px)</div>
-                <Slider
-                  min={8}
-                  max={24}
-                  value={spacing}
-                  onChange={setSpacing}
-                  style={{ width: 150 }}
-                />
-              </div>
-            </Space>
-          </div>
-
-          {/* Preview */}
-          <Card title="Preview">
+          <h4>History Widget</h4>
+          <Card>
             <div style={{
-              border: `1px dashed ${selectedColors.border}`,
               borderRadius: `${borderRadius}px`,
               width: '100%',
               display: 'flex',
