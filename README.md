@@ -68,7 +68,7 @@ waii-widget-examples/
 
 #### Configuration
 
-`config.js` in the root folder needs to be modified before running examples. At the very least you need to replace the following values with your own:
+[Config file](./config.js) in the root folder needs to be modified before running examples. At the very least you need to replace the following values with your own:
 
 - `apiKey`: Your Waii API key
 - `databaseKey`: Your database connection string
@@ -76,22 +76,36 @@ waii-widget-examples/
 - `iFrameScr`: Your iFrame host (if different from default, iframe example only)
 
 #### Standalone Example
-
 ```bash
-npm start:standalone
+npm run start:standalone
 ```
 The example will be available at `http://localhost:3000`
 
 #### React Example
 
+Chat (dev):
 ```bash
 npm run start:react-chat
 ```
+Chat (prod) [RECOMMENDED]:
+```bash
+npm run serve:prod:react-chat
+```
+Chat with history (dev):
 ```bash
 npm run start:react-chat-with-history
 ```
+Chat with history (prod) [RECOMMENDED]:
+```bash
+npm run serve:prod:react-chat-with-history
+```
+History (dev):
 ```bash
 npm run start:react-history
+```
+History (prod) [RECOMMENDED]:
+```bash
+npm run serve:prod:react-history
 ```
 The example will be available at `http://localhost:3001`
 

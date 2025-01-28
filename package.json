@@ -14,11 +14,14 @@
   "scripts": {
     "start:iframe": "cd iframe && npm start",
     "start:react-chat-with-history": "cd react-examples/chat-with-history && npm start",
+    "serve:prod:react-chat-with-history": "cd react-examples/chat-with-history && npm run serve:prod",
     "start:react-chat": "cd react-examples/chat && npm start",
+    "serve:prod:react-chat": "cd react-examples/chat && npm run serve:prod",
     "start:react-history": "cd react-examples/history && npm start",
+    "serve:prod:react-history": "cd react-examples/history && npm run serve:prod",
     "start:standalone": "cd standalone && npm start"
   },
   "dependencies": {
-    "@waii-ai/widgets": "1.27.6-beta.6"
+    "@waii-ai/widgets": "1.27.7-beta.0"
   }
 }
