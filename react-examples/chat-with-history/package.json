@@ -15,7 +15,7 @@
       "react": "18.3.1",
       "react-dom": "18.3.1",
       "antd": "^5.21.6",
-      "@waii-ai/widgets": "1.27.7-beta.8",
+      "@waii-ai/widgets": "1.27.7-beta.10",
       "waii-sdk-js": "1.27.3-beta.0"
     },
     "devDependencies": {

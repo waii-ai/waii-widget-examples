@@ -8,7 +8,7 @@
     "start": "http-server -p 3000"
   },
   "dependencies": {
-    "@waii-ai/widgets": "1.27.7-beta.8"
+    "@waii-ai/widgets": "1.27.7-beta.10"
   },
   "devDependencies": {
     "http-server": "^14.1.1"
