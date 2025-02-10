@@ -49,6 +49,8 @@
             box-shadow: -2px 0 12px rgba(0, 0, 0, 0.1);
             transition: right 0.3s ease;
             z-index: 998;
+            padding: 0px;
+            margin: 0px;
         }
 
         #chat-container.open {
@@ -112,13 +114,22 @@
                 theme: currentTheme,
                 containerStyles: {
 		            height: 'calc(100% - 50px)',
-		            width: '100%'
+		            width: '100%',
+                    padding: '0px',
+                    margin: '0px'
                 },
 		        chatStyles: {
 		            container: {
-			            height: '100%',
-			            width: '100%'
-		            }
+			            height: 'calc(100% - 10px)',
+			            width: '100%',
+                        padding: '0px',
+                        margin: '0px'
+		            },
+                    messageList: {
+                        width: 'calc(100% - 5px)',
+                        padding: '0px',
+                        margin: '0px',
+                    }
 		        },
                 onChatResponse: (response) => {
                     console.log('Chat response:', response);
