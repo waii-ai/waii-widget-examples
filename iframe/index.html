@@ -111,9 +111,15 @@
                 databaseKey: window.configs.databaseKey,
                 theme: currentTheme,
                 containerStyles: {
-                    height: 'calc(100% - 50px)',
-                    width: '100%'
+		            height: 'calc(100% - 50px)',
+		            width: '100%'
                 },
+		        chatStyles: {
+		            container: {
+			            height: '100%',
+			            width: '100%'
+		            }
+		        },
                 onChatResponse: (response) => {
                     console.log('Chat response:', response);
                 },
