@@ -59,7 +59,20 @@ waii-widget-examples/
    cd waii-widget-examples
    ```
 
+Ensure your project is using the latest version of the Waii Widgets (Currently 1.27.9). In your package.json, update your dependency as follows:
+
+```
+"dependencies": {
+  "@waii-ai/widgets": "^1.27.9"
+}
+```
+
+**Note:** If you are upgrading from a different version, please remove the existing package-lock.json file and the node_modules directory, then run npm install to ensure all dependencies are correctly updated.
+
+For more recent version, see the [Waii Widgets npm page](https://www.npmjs.com/package/@waii-ai/widgets/v/1.27.9).
+
 2. Install dependencies for all examples:
+
    ```bash
    npm install
    ```
