@@ -1,7 +1,6 @@
 import React, { useState, useRef, useCallback } from 'react';
 import { WaiiChat, WaiiChatHistory } from '@waii-ai/widgets';
-import { ChatResponse, ChatRequest } from 'waii-sdk-js/dist/clients/chat/src/Chat';
-import { GeneratedChatHistoryEntry } from 'waii-sdk-js/dist/clients/history/src/History';
+import { GeneratedChatHistoryEntry } from '@waii-ai/widgets/dist/types/components/ChatHistory/types';
 import { Button, Spin } from 'antd';
 import { WaiiChatHandle } from '@waii-ai/widgets/dist/types/components/Chat/types';
 import '../../../config.js';
