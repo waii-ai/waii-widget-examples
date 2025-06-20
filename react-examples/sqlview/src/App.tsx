@@ -93,6 +93,20 @@ const WaiiSQLViewShowcase: React.FC = () => {
   const [showGeneratingSpinner, setShowGeneratingSpinner] = useState(true);
   const [customLoadingText, setCustomLoadingText] = useState('');
 
+  const [editorReady, setEditorReady] = useState(false);
+  const [editorInfo, setEditorInfo] = useState<{
+    totalLines: number;
+    totalChars: number;
+    cursorLine: number;
+    currentSelection: string;
+  }>({
+    totalLines: 0,
+    totalChars: 0,
+    cursorLine: 0,
+    currentSelection: ''
+  });
+  const editorViewRef = useRef<any>(null);
+
   // Compute enhanced props
   const dimensions = {
     height: `${height}px`,
@@ -161,8 +175,51 @@ const WaiiSQLViewShowcase: React.FC = () => {
     console.log('Selection changed:', selection);
   }, []);
 
-  const handleEditorReady = useCallback((editor: any) => {
-    console.log('Editor ready:', editor);
+  const handleEditorReady = useCallback((view: any, state: any) => {
+    
+    if (!view) {
+      console.warn('View is undefined in onCreateEditor - this might be a CodeMirror parameter order issue');
+      return;
+    }
+    
+    editorViewRef.current = view;
+    setEditorReady(true);
+    
+    const updateEditorInfo = () => {
+      if (view && state) {
+        try {
+          const doc = state.doc;
+          const selection = state.selection.main;
+          const cursorLine = doc.lineAt(selection.head);
+          
+          setEditorInfo({
+            totalLines: doc.lines,
+            totalChars: doc.length,
+            cursorLine: cursorLine.number,
+            currentSelection: doc.sliceString(selection.from, selection.to)
+          });
+        } catch (error) {
+          console.warn('Error updating editor info:', error);
+        }
+      }
+    };
+    
+    updateEditorInfo();
+    
+    if (view && typeof view.update?.addListener === 'function') {
+      view.update.addListener((update: any) => {
+        if (update.docChanged || update.selectionSet) {
+          updateEditorInfo();
+        }
+      });
+    }
+    
+    if (view && typeof view.focus === 'function') {
+      setTimeout(() => {
+        view.focus();
+      }, 100);
+    }
+    
   }, []);
 
   console.log('aiSuggestionsEnabled', aiSuggestionsEnabled);
@@ -196,7 +253,7 @@ const WaiiSQLViewShowcase: React.FC = () => {
           <Col span={16}>
             <Card style={{ height: '100%' }}>
               <Space direction="vertical" size="middle" style={{ width: '100%' }}>
-                <Space>
+                <Space wrap>
                   <Button onClick={simulateGeneration} loading={generating}>
                     Simulate Generation
                   </Button>
@@ -210,6 +267,85 @@ const WaiiSQLViewShowcase: React.FC = () => {
                     unCheckedChildren="☀️"
                   />
                 </Space>
+
+                {editorReady && (
+                  <Alert
+                    type="info"
+                    message="Editor Ready!"
+                    description={
+                      <Space direction="vertical" size="small" style={{ width: '100%' }}>
+                        <Text>
+                          <strong>Lines:</strong> {editorInfo.totalLines} | 
+                          <strong> Characters:</strong> {editorInfo.totalChars} | 
+                          <strong> Current Line:</strong> {editorInfo.cursorLine}
+                        </Text>
+                        {editorInfo.currentSelection && (
+                          <Text>
+                            <strong>Selected:</strong> "{editorInfo.currentSelection}"
+                          </Text>
+                        )}
+                        <Space wrap>
+                          <Button 
+                            size="small" 
+                            onClick={() => {
+                              if (editorViewRef.current) {
+                                editorViewRef.current.focus();
+                              }
+                            }}
+                          >
+                            Focus Editor
+                          </Button>
+                          <Button 
+                            size="small" 
+                            onClick={() => {
+                              if (editorViewRef.current) {
+                                const doc = editorViewRef.current.state.doc;
+                                editorViewRef.current.dispatch({
+                                  selection: { anchor: 0, head: doc.length }
+                                });
+                              }
+                            }}
+                          >
+                            Select All
+                          </Button>
+                          <Button 
+                            size="small" 
+                            onClick={() => {
+                              if (editorViewRef.current) {
+                                editorViewRef.current.dispatch({
+                                  changes: {
+                                    from: 0,
+                                    to: editorViewRef.current.state.doc.length,
+                                    insert: 'SELECT * FROM users WHERE active = true;'
+                                  }
+                                });
+                              }
+                            }}
+                          >
+                            Insert Sample Query
+                          </Button>
+                          <Button 
+                            size="small" 
+                            onClick={() => {
+                              if (editorViewRef.current) {
+                                const cursor = editorViewRef.current.state.selection.main.head;
+                                editorViewRef.current.dispatch({
+                                  changes: {
+                                    from: cursor,
+                                    insert: '\n-- Added via onCreateEditor reference'
+                                  }
+                                });
+                              }
+                            }}
+                          >
+                            Add Comment
+                          </Button>
+                        </Space>
+                      </Space>
+                    }
+                    style={{ marginBottom: 16 }}
+                  />
+                )}
                 
 
                 <div style={{ 
@@ -234,8 +370,88 @@ const WaiiSQLViewShowcase: React.FC = () => {
                     isQueryRunning={isQueryRunning}
                     onCursorChange={handleCursorChange}
                     isExpandedVisible={false}
-
-                    
+                    customKeymap={
+                      [
+                      {
+                        key: "Ctrl-s",
+                        run: (view) => {
+                          console.log('Save shortcut pressed (Ctrl+S)');
+                          const content = view.state.doc.toString();
+                          console.log('Saving SQL:', content);
+                          return true;
+                        }
+                      },
+                      {
+                        key: "F5",
+                        run: (view) => {
+                          console.log('Refresh shortcut pressed (F5)');
+                          return true;
+                        }
+                      },
+                      {
+                        key: "Ctrl-Alt-f",
+                        run: (view) => {
+                          console.log('Format shortcut pressed (Ctrl+Alt+F)');
+                          const content = view.state.doc.toString();
+                          const formatted = content
+                            .replace(/\s+/g, ' ')
+                            .replace(/\s*,\s*/g, ',\n  ')
+                            .replace(/\s*FROM\s*/gi, '\nFROM ')
+                            .replace(/\s*WHERE\s*/gi, '\nWHERE ')
+                            .replace(/\s*ORDER\s+BY\s*/gi, '\nORDER BY ');
+                          
+                          view.dispatch({
+                            changes: {
+                              from: 0,
+                              to: view.state.doc.length,
+                              insert: formatted
+                            }
+                          });
+                          return true;
+                        }
+                      },
+                      {
+                        key: "Ctrl-d",
+                        run: (view) => {
+                          console.log('Duplicate line shortcut pressed (Ctrl+D)');
+                          const cursor = view.state.selection.main.head;
+                          const line = view.state.doc.lineAt(cursor);
+                          view.dispatch({
+                            changes: {
+                              from: line.to,
+                              insert: '\n' + line.text
+                            },
+                            selection: { anchor: line.to + 1 + line.text.length }
+                          });
+                          return true;
+                        }
+                      },
+                      {
+                        key: "Ctrl-/",
+                        run: (view) => {
+                          console.log('Toggle comment shortcut pressed (Ctrl+/)');
+                          const cursor = view.state.selection.main.head;
+                          const line = view.state.doc.lineAt(cursor);
+                          const lineText = line.text;
+                          
+                          let newText: string;
+                          if (lineText.trim().startsWith('--')) {
+                            newText = lineText.replace(/^\s*--\s?/, '');
+                          } else {
+                            newText = '-- ' + lineText;
+                          }
+                          
+                          view.dispatch({
+                            changes: {
+                              from: line.from,
+                              to: line.to,
+                              insert: newText
+                            }
+                          });
+                          return true;
+                        }
+                      }
+                    ]}
                     dimensions={dimensions}
                     themePreset={themePreset as any}
                     colorOverrides={colorOverrides}
@@ -244,7 +460,7 @@ const WaiiSQLViewShowcase: React.FC = () => {
                     accessibilityConfig={accessibilityConfig}
                     loadingConfig={loadingConfig}
                     onSelectionChange={handleSelectionChange}
-                    onReady={handleEditorReady}
+                    onCreateEditor={handleEditorReady}
                     catalog={{
                       "catalogs": [
                           {
