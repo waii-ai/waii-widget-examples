@@ -478,7 +478,7 @@ const WaiiSQLViewShowcase: React.FC = () => {
                     catalog={{
                       "catalogs": [
                           {
-                              "name": "MOVIE_DB",
+                              "name": "\"MOVIE_DB\"",
                               "schemas": [
                                   {
                                       "entity_type": "schema",
@@ -491,8 +491,8 @@ const WaiiSQLViewShowcase: React.FC = () => {
                                               "entity_type": "table",
                                               "name": {
                                                   "table_name": "\"TV_SERIES_TO_newS_BRIDGE\"",
-                                                  "schema_name": "MOVIES_AND_TV",
-                                                  "database_name": "MOVIE_DB"
+                                                  "schema_name": "\"MOVIES_AND_TV\"",
+                                                  "database_name": "\"MOVIE_DB\""
                                               },
                                               "columns": [
                                                   {
