@@ -450,6 +450,20 @@ const WaiiSQLViewShowcase: React.FC = () => {
                           });
                           return true;
                         }
+                      },
+                      {
+                        key: "Shift-Enter",
+                        run: (view) => {
+                          console.log('Execute query shortcut triggered! (Shift+Enter)');
+                          const content = view.state.doc.toString();
+                          if (content.trim()) {
+                            console.log('Executing SQL:', content);
+                            simulateQuery(); // Trigger the query execution
+                          } else {
+                            console.log('No SQL content to execute');
+                          }
+                          return true;
+                        }
                       }
                     ]}
                     dimensions={dimensions}
