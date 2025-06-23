@@ -483,21 +483,21 @@ const WaiiSQLViewShowcase: React.FC = () => {
                                   {
                                       "entity_type": "schema",
                                       "name": {
-                                          "schema_name": "MOVIES_AND_TV",
-                                          "database_name": "MOVIE_DB"
+                                          "schema_name": "\"MOVIES_AND_TV\"",
+                                          "database_name": "\"MOVIE_DB\""
                                       },
                                       "tables": [
                                           {
                                               "entity_type": "table",
                                               "name": {
-                                                  "table_name": "TV_SERIES_TO_NETWORKS_BRIDGE",
+                                                  "table_name": "\"TV_SERIES_TO_newS_BRIDGE\"",
                                                   "schema_name": "MOVIES_AND_TV",
                                                   "database_name": "MOVIE_DB"
                                               },
                                               "columns": [
                                                   {
                                                       "entity_type": "column",
-                                                      "name": "TV_SERIES_ID",
+                                                      "name": "\"TV_series_ID\"",
                                                       "type": "TEXT"
                                                   },
                                                   {
