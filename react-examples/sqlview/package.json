@@ -5,7 +5,7 @@
   "author": "Waii, Inc.",
   "license": "MIT",
   "scripts": {
-    "start": "webpack serve --port 3007",
+    "start": "webpack serve --port 3015",
     "build": "webpack --mode production",
     "serve": "http-server ./dist -p 3003",
     "serve:prod": "npm run build && npm run serve",
@@ -15,7 +15,7 @@
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "antd": "^5.21.6",
-    "@waii-ai/widgets": "1.31.0-beta.5"
+    "@waii-ai/widgets": "1.31.0-beta.8"
   },
   "devDependencies": {
     "@types/react": "^18.3.16",
