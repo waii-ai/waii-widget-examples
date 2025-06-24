@@ -38,13 +38,18 @@ const mockAutocomplete = (pos: number, aiSuggestionsEnabled: boolean): string | 
 };
 
 const WaiiSQLViewShowcase: React.FC = () => {
-  // Basic state
   const [manualQuery, setManualQuery] = useState('');
   const [generatedQuery, setGeneratedQuery] = useState('');
   const [isQueryRunning, setIsQueryRunning] = useState(false);
   const [generating, setGenerating] = useState(false);
   const [searchError, setSearchError] = useState('');
   const [isDarkMode, setIsDarkMode] = useState(false);
+
+  const [manualQuery2, setManualQuery2] = useState('');
+  const [generatedQuery2, setGeneratedQuery2] = useState('');
+  const [isQueryRunning2, setIsQueryRunning2] = useState(false);
+  const [generating2, setGenerating2] = useState(false);
+  const [searchError2, setSearchError2] = useState('');
 
   // Enhanced dimensions
   const [height, setHeight] = useState(300);
@@ -162,17 +167,28 @@ const WaiiSQLViewShowcase: React.FC = () => {
     ...(customLoadingText && { customLoadingText })
   };
 
-  // Event handlers
   const handleUpdateQuery = useCallback((query: string) => {
     setManualQuery(query);
   }, []);
 
   const handleCursorChange = useCallback((pos: number) => {
-    console.log('Cursor position:', pos);
+    console.log('Editor 1 - Cursor position:', pos);
   }, []);
 
   const handleSelectionChange = useCallback((selection: { from: number; to: number; text: string }) => {
-    console.log('Selection changed:', selection);
+    console.log('Editor 1 - Selection changed:', selection);
+  }, []);
+
+  const handleUpdateQuery2 = useCallback((query: string) => {
+    setManualQuery2(query);
+  }, []);
+
+  const handleCursorChange2 = useCallback((pos: number) => {
+    console.log('Editor 2 - Cursor position:', pos);
+  }, []);
+
+  const handleSelectionChange2 = useCallback((selection: { from: number; to: number; text: string }) => {
+    console.log('Editor 2 - Selection changed:', selection);
   }, []);
 
   const handleEditorReady = useCallback((view: any, state: any) => {
@@ -242,23 +258,43 @@ const WaiiSQLViewShowcase: React.FC = () => {
     setTimeout(() => setSearchError(''), 3000);
   };
 
+  const simulateQuery2 = () => {
+    setIsQueryRunning2(true);
+    setTimeout(() => setIsQueryRunning2(false), 2000);
+  };
+
+  const simulateGeneration2 = () => {
+    setGenerating2(true);
+    setTimeout(() => {
+      setGenerating2(false);
+      setGeneratedQuery2('SELECT p.name, p.price, c.name as category FROM products p JOIN categories c ON p.category_id = c.id ORDER BY p.price DESC;');
+    }, 3000);
+  };
+
+  const simulateError2 = () => {
+    setSearchError2('Sample error: Table "products" does not exist');
+    setTimeout(() => setSearchError2(''), 3000);
+  };
+
   return (
     <div style={{ padding: '20px', maxWidth: '1400px', margin: '0 auto' }}>
       <Space direction="vertical" size="large" style={{ width: '100%' }}>
         <Card>
-          <Title level={2}>WaiiSQLView Demo</Title>
+          <Title level={2}>WaiiSQLView Demo - Multiple Instances Test</Title>
+          <Text type="secondary">Testing that tab key works independently on each editor</Text>
         </Card>
 
         <Row gutter={24}>
           <Col span={16}>
             <Card style={{ height: '100%' }}>
               <Space direction="vertical" size="middle" style={{ width: '100%' }}>
+                <Title level={4}>Editor 1</Title>
                 <Space wrap>
                   <Button onClick={simulateGeneration} loading={generating}>
-                    Simulate Generation
+                    Simulate Generation (Editor 1)
                   </Button>
                   <Button onClick={simulateError}>
-                    Simulate Error
+                    Simulate Error (Editor 1)
                   </Button>
                   <Switch 
                     checked={isDarkMode} 
@@ -535,6 +571,59 @@ const WaiiSQLViewShowcase: React.FC = () => {
                   }}
                     classNames={{
                       container: 'enhanced-sql-container'
+                    }}
+                    styles={{
+                      container: {
+                        boxShadow: isDarkMode ? '0 4px 12px rgba(0,0,0,0.3)' : '0 4px 12px rgba(0,0,0,0.1)'
+                      }
+                    }}
+                  />
+                </div>
+
+                <Divider />
+
+                <Title level={4}>Editor 2</Title>
+                <Space wrap>
+                  <Button onClick={simulateGeneration2} loading={generating2}>
+                    Simulate Generation (Editor 2)
+                  </Button>
+                  <Button onClick={simulateError2}>
+                    Simulate Error (Editor 2)
+                  </Button>
+                </Space>
+
+                <div style={{ 
+                  border: '1px solid #d9d9d9', 
+                  borderRadius: '6px',
+                  padding: '16px',
+                  backgroundColor: isDarkMode ? '#001529' : '#fafafa'
+                }}>
+                  <WaiiSQLView
+                    aisuggestion={aiSuggestionsEnabled}
+                    manualQuery={manualQuery2}
+                    sampleQuery="Type your SQL query here for Editor 2..."
+                    autocomplete={(pos: number) => mockAutocomplete(pos, aiSuggestionsEnabled)}
+                    updateGeneratedQuery={handleUpdateQuery2}
+                    generatedQuery={generatedQuery2}
+                    isDarkMode={isDarkMode}
+                    dbType="snowflake"
+                    timer={0}
+                    searchError={searchError2}
+                    generating={generating2}
+                    readOnly={false}
+                    isQueryRunning={isQueryRunning2}
+                    onCursorChange={handleCursorChange2}
+                    isExpandedVisible={false}
+                    dimensions={dimensions}
+                    themePreset={themePreset as any}
+                    colorOverrides={colorOverrides}
+                    editorConfig={editorConfig}
+                    aiSuggestionsConfig={aiSuggestionsConfig}
+                    accessibilityConfig={accessibilityConfig}
+                    loadingConfig={loadingConfig}
+                    onSelectionChange={handleSelectionChange2}
+                    classNames={{
+                      container: 'enhanced-sql-container-2'
                     }}
                     styles={{
                       container: {
