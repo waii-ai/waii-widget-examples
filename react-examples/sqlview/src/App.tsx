@@ -565,7 +565,56 @@ const WaiiSQLViewShowcase: React.FC = () => {
                                               ]
                                           }
                                       ]
-                                  }
+                                  },
+                                  {
+                                    "entity_type": "schema",
+                                    "name": {
+                                        "schema_name": "\"TV_SHOWS\"",
+                                        "database_name": "\"MOVIE_DB\""
+                                    },
+                                    "tables": [
+                                        {
+                                            "entity_type": "table",
+                                            "name": {
+                                                "table_name": "\"test1\"",
+                                                "schema_name": "\"MOVIES_AND_TV\"",
+                                                "database_name": "\"MOVIE_DB\""
+                                            },
+                                            "columns": [
+                                                {
+                                                    "entity_type": "column",
+                                                    "name": "\"TV_series_ID\"",
+                                                    "type": "TEXT"
+                                                },
+                                                {
+                                                    "entity_type": "column",
+                                                    "name": "NETWORK_ID",
+                                                    "type": "TEXT"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "entity_type": "table",
+                                            "name": {
+                                                "table_name": "test2",
+                                                "schema_name": "MOVIES_AND_TV",
+                                                "database_name": "MOVIE_DB"
+                                            },
+                                            "columns": [
+                                                {
+                                                    "entity_type": "column",
+                                                    "name": "TV_SERIES_ID",
+                                                    "type": "TEXT"
+                                                },
+                                                {
+                                                    "entity_type": "column",
+                                                    "name": "PROD_COMP_ID",
+                                                    "type": "TEXT"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
                               ]
                           }
                       ]
