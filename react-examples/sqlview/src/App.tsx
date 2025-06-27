@@ -400,6 +400,7 @@ const WaiiSQLViewShowcase: React.FC = () => {
                     isDarkMode={isDarkMode}
                     dbType="snowflake"
                     timer={0}
+                    activeDatabase="MOVIE_DB.MOVIES_AND_TV"
                     searchError={searchError}
                     generating={generating}
                     readOnly={false}
